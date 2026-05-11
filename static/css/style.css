@@ -594,3 +594,53 @@ img{
         min-height:auto
     }
 }
+.float-whatsapp,
+.float-call{
+    position: fixed;
+    right: 18px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    z-index: 9999;
+    font-size: 24px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+.float-whatsapp{
+    bottom: 100px;
+    background: #25d366;
+}
+
+.float-call{
+    bottom: 28px;
+    background: #d7aa55;
+    color: #111;
+}
+
+/* Mobile Fix */
+@media(max-width:768px){
+
+    .float-whatsapp,
+    .float-call{
+        right: 15px;
+        width: 58px;
+        height: 58px;
+        font-size: 22px;
+    }
+
+    .float-whatsapp{
+        bottom: 95px;
+    }
+
+    .float-call{
+        bottom: 25px;
+    }
+
+    .enquiry-pop{
+        display:none;
+    }
+}
