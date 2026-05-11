@@ -1,0 +1,19 @@
+{% extends "dashboard/base.html" %}
+{% block heading %}Portfolio Projects{% endblock %}
+{% block content %}
+<section class="dash-panel">
+  <div class="panel-head"><h2>Manage Projects</h2><a class="dash-action" href="{% url 'project_create' %}">Add Project</a></div>
+  <div class="project-admin-grid">
+    {% for project in projects %}
+    <article class="project-admin-card">
+      <img src="{{ project.cover_image.url }}" alt="{{ project.title }}">
+      <div><span>{{ project.get_category_display }}</span><h3>{{ project.title }}</h3><p>{{ project.description|truncatechars:95 }}</p></div>
+      <div class="card-actions">
+        <a href="{% url 'project_edit' project.pk %}">Edit</a>
+        <form method="post" action="{% url 'project_delete' project.pk %}">{% csrf_token %}<button type="submit">Delete</button></form>
+      </div>
+    </article>
+    {% empty %}<p>No portfolio projects yet.</p>{% endfor %}
+  </div>
+</section>
+{% endblock %}

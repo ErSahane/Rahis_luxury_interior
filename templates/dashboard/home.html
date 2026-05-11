@@ -1,0 +1,39 @@
+{% extends "dashboard/base.html" %}
+{% block heading %}Dashboard Overview{% endblock %}
+{% block content %}
+<section class="metric-grid">
+  <div class="metric"><span>Total Projects</span><strong>{{ total_projects }}</strong></div>
+  <div class="metric"><span>Total Appointments</span><strong>{{ total_appointments }}</strong></div>
+  <div class="metric"><span>Pending Calls</span><strong>{{ pending_appointments }}</strong></div>
+  <div class="metric"><span>Recent Works</span><strong>{{ recent_projects|length }}</strong></div>
+</section>
+<div class="row g-4">
+  <div class="col-xl-7">
+    <section class="dash-panel">
+      <div class="panel-head"><h2>Recent Appointments</h2><a href="{% url 'dashboard_appointments' %}">View All</a></div>
+      <div class="table-responsive">
+        <table class="table align-middle">
+          <tbody>
+          {% for item in recent_appointments %}
+            <tr><td><strong>{{ item.name }}</strong><br><small>{{ item.mobile }}</small></td><td>{{ item.get_work_type_display }}</td><td>{{ item.preferred_date }}</td><td>{% if item.is_completed %}<span class="badge text-bg-success">Done</span>{% else %}<span class="badge text-bg-warning">Pending</span>{% endif %}</td></tr>
+          {% empty %}
+            <tr><td>No appointments yet.</td></tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+  <div class="col-xl-5">
+    <section class="dash-panel">
+      <div class="panel-head"><h2>Recent Works</h2><a href="{% url 'project_create' %}">Add</a></div>
+      {% for project in recent_projects %}
+      <div class="mini-work">
+        <img src="{{ project.cover_image.url }}" alt="{{ project.title }}">
+        <div><strong>{{ project.title }}</strong><span>{{ project.get_category_display }}</span></div>
+      </div>
+      {% empty %}<p>No projects uploaded yet.</p>{% endfor %}
+    </section>
+  </div>
+</div>
+{% endblock %}

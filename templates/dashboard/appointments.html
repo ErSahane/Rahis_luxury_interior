@@ -1,0 +1,28 @@
+{% extends "dashboard/base.html" %}
+{% block heading %}Appointments{% endblock %}
+{% block content %}
+<section class="dash-panel">
+  <div class="panel-head"><h2>Manage Bookings</h2><a class="dash-action" href="{% url 'appointment_export' %}">Export CSV</a></div>
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead><tr><th>Name</th><th>Mobile</th><th>Work</th><th>Date</th><th>Address</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody>
+      {% for item in appointments %}
+      <tr>
+        <td><strong>{{ item.name }}</strong><br><small>{{ item.created_at|date:"d M Y" }}</small></td>
+        <td><a href="tel:{{ item.mobile }}">{{ item.mobile }}</a></td>
+        <td>{{ item.get_work_type_display }}</td>
+        <td>{{ item.preferred_date }}</td>
+        <td>{{ item.address|truncatechars:45 }}</td>
+        <td>{% if item.is_completed %}<span class="badge text-bg-success">Completed</span>{% else %}<span class="badge text-bg-warning">Pending</span>{% endif %}</td>
+        <td class="table-actions">
+          <a href="{% url 'appointment_toggle' item.pk %}">Toggle</a>
+          <form method="post" action="{% url 'appointment_delete' item.pk %}">{% csrf_token %}<button>Delete</button></form>
+        </td>
+      </tr>
+      {% empty %}<tr><td colspan="7">No appointments yet.</td></tr>{% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

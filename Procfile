@@ -1,0 +1,1 @@
+web: gunicorn rahis_luxury.wsgi

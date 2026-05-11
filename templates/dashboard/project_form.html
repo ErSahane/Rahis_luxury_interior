@@ -1,0 +1,28 @@
+{% extends "dashboard/base.html" %}
+{% block heading %}{{ title }}{% endblock %}
+{% block content %}
+<section class="dash-panel form-panel">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row g-3">
+      {% for field in form %}
+      <div class="{% if field.name == 'description' %}col-12{% else %}col-md-6{% endif %}">
+        <label class="form-label">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}<small class="text-danger">{{ field.errors|striptags }}</small>{% endif %}
+      </div>
+      {% endfor %}
+      <div class="col-12">
+        <label class="form-label">Upload Multiple Gallery Images</label>
+        <input class="form-control" type="file" name="gallery_images" multiple accept="image/*">
+      </div>
+      {% if project %}
+      <div class="col-12 gallery-strip">
+        {% for image in project.images.all %}<img src="{{ image.image.url }}" alt="{{ image.caption }}">{% endfor %}
+      </div>
+      {% endif %}
+      <div class="col-12"><button class="dash-action" type="submit">Save Project</button></div>
+    </div>
+  </form>
+</section>
+{% endblock %}

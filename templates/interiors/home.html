@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<nav class="navbar navbar-expand-lg fixed-top lux-nav">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#home">
+    <img src="{% static 'img/logo.png' %}" alt="Rahis Logo" class="nav-logo">
+    <span>Rahis</span> Luxury Interiors
+</a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mainNav"><i class="fa-solid fa-bars"></i></button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#booking">Appointment</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        <li class="nav-item"><button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button></li>
+        <li class="nav-item ms-lg-2"><a class="nav-cta" href="tel:{{ phone_number }}"><i class="fa-solid fa-phone"></i> Call</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header id="home" class="hero-section">
+  <div class="swiper hero-swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide hero-slide" style="background-image:url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=85')"></div>
+      <div class="swiper-slide hero-slide" style="background-image:url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1800&q=85')"></div>
+      <div class="swiper-slide hero-slide" style="background-image:url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1800&q=85')"></div>
+    </div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="container hero-content">
+    <p class="eyebrow" data-aos="fade-up">Turning Wood Into Luxury</p>
+    <h1 data-aos="fade-up" data-aos-delay="100">Rahis Luxury Interiors</h1>
+    <h2 data-aos="fade-up" data-aos-delay="180">Modern Furniture & Luxury Interior Solutions</h2>
+    <p data-aos="fade-up" data-aos-delay="260">Premium modular kitchens, wardrobes, sofas, TV panels, wooden work, offices, and custom interiors crafted with polish, precision, and personality.</p>
+    <div class="hero-actions" data-aos="fade-up" data-aos-delay="340">
+      <a href="#booking" class="btn-gold">Book Appointment</a>
+      <a href="#portfolio" class="btn-glass">View Our Work</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="about" class="section about-band">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-6" data-aos="fade-right">
+          <div class="image-stack">
+            <img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=900&q=80" alt="Luxury living room">
+            <div class="experience-card"><strong class="counter" data-target="{{ stats.years }}">0</strong><span>Years of Craftsmanship</span></div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <p class="eyebrow">About Us</p>
+          <h2 class="section-title">Luxury interiors with carpenter-level detailing.</h2>
+          <p class="lead">Rahis Luxury Interiors designs and builds furniture-led interior spaces for homes, offices, bedrooms, kitchens, and complete renovations. Every project is measured, planned, fabricated, and finished for real everyday living.</p>
+          <div class="why-grid">
+            <div><i class="fa-solid fa-ruler-combined"></i><h3>Custom Fit</h3><p>Made for your exact room size, storage needs, and finish preference.</p></div>
+            <div><i class="fa-solid fa-gem"></i><h3>Premium Finish</h3><p>Luxury laminates, polish, hardware, textures, and clean installation.</p></div>
+            <div><i class="fa-solid fa-handshake"></i><h3>Trusted Work</h3><p>Transparent communication from site visit to final handover.</p></div>
+            <div><i class="fa-solid fa-bolt"></i><h3>Fast Delivery</h3><p>Efficient workflow for kitchens, almari, beds, panels, and office setups.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats-strip">
+    <div class="container stats-grid">
+      <div><strong class="counter" data-target="{{ stats.projects }}">0</strong><span>Projects</span></div>
+      <div><strong class="counter" data-target="{{ stats.clients }}">0</strong><span>Happy Clients</span></div>
+      <div><strong class="counter" data-target="{{ stats.finish }}">0</strong><span>Premium Finish %</span></div>
+      <div><strong>24/7</strong><span>Enquiry Support</span></div>
+    </div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="container">
+      <div class="section-head" data-aos="fade-up">
+        <p class="eyebrow">Services</p>
+        <h2 class="section-title">Furniture and interior work for every premium space.</h2>
+      </div>
+      <div class="row g-4">
+        {% for service in services %}
+        <div class="col-md-6 col-xl-3" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0 }}00">
+          <article class="service-card">
+            {% if service.image %}
+              <img src="{{ service.image.url }}" alt="{{ service.title }}">
+            {% else %}
+              <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=700&q=75" alt="{{ service.title }}">
+            {% endif %}
+            <div class="service-body">
+              <i class="{{ service.icon }}"></i>
+              <h3>{{ service.title }}</h3>
+              <p>{{ service.description }}</p>
+              <a href="https://wa.me/{{ whatsapp_number }}?text=I%20want%20{{ service.title|urlencode }}" class="link-gold">Contact Now</a>
+            </div>
+          </article>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio" class="section portfolio-band">
+    <div class="container">
+      <div class="section-head" data-aos="fade-up">
+        <p class="eyebrow">Portfolio</p>
+        <h2 class="section-title">Recent work gallery.</h2>
+      </div>
+      <div class="filter-bar" data-aos="fade-up">
+        <button class="active" data-filter="all">All</button>
+        {% for value,label in categories %}<button data-filter="{{ value }}">{{ label }}</button>{% endfor %}
+      </div>
+      <div class="portfolio-grid">
+        {% for project in projects %}
+        <a href="{{ project.cover_image.url }}" class="portfolio-item glightbox" data-gallery="work" data-category="{{ project.category }}" data-aos="fade-up">
+          <img src="{{ project.cover_image.url }}" alt="{{ project.title }}">
+          <span><strong>{{ project.title }}</strong><small>{{ project.get_category_display }}</small></span>
+        </a>
+        {% empty %}
+        <div class="empty-gallery">
+          <p>No projects uploaded yet. Add your first luxury work from the dashboard.</p>
+          <img src="https://images.unsplash.com/photo-1600566753151-384129cf4e3e?auto=format&fit=crop&w=900&q=80" alt="Interior preview">
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section compare-section">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-5" data-aos="fade-right">
+          <p class="eyebrow">Before / After</p>
+          <h2 class="section-title">See the finish before the reveal.</h2>
+          <p>Drag the handle to compare a plain room with a premium wooden interior transformation.</p>
+        </div>
+        <div class="col-lg-7" data-aos="fade-left">
+          <div class="compare">
+            <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1100&q=75" alt="Before">
+            <div class="compare-after" id="compareAfter"><img src="https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=1100&q=80" alt="After"></div>
+            <input type="range" min="10" max="90" value="55" id="compareRange" aria-label="Before after slider">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section testimonials">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Reviews</p>
+        <h2 class="section-title">Clients notice the finish.</h2>
+      </div>
+      <div class="swiper review-swiper">
+        <div class="swiper-wrapper">
+          {% for review in testimonials %}
+          <div class="swiper-slide review-card">
+            <div class="stars">{% for i in "12345" %}<i class="fa-solid fa-star"></i>{% endfor %}</div>
+            <p>{{ review.message }}</p>
+            <h3>{{ review.client_name }}</h3>
+            <span>{{ review.location }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="booking" class="section booking-band">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-5" data-aos="fade-right">
+          <p class="eyebrow">Appointment</p>
+          <h2 class="section-title">Book a site visit or design call.</h2>
+          <p>Share the work type, address, and preferred date. Your booking is saved securely in the dashboard for follow-up.</p>
+          <a class="call-panel" href="tel:{{ phone_number }}"><i class="fa-solid fa-phone-volume"></i><span>{{ phone_number }}</span></a>
+        </div>
+        <div class="col-lg-7" data-aos="fade-left">
+          <form class="lux-form" method="post" action="{% url 'book_appointment' %}">
+            {% csrf_token %}
+            <div class="row g-3">
+              <div class="col-md-6">{{ appointment_form.name.label_tag }}{{ appointment_form.name }}</div>
+              <div class="col-md-6">{{ appointment_form.mobile.label_tag }}{{ appointment_form.mobile }}</div>
+              <div class="col-md-6">{{ appointment_form.work_type.label_tag }}{{ appointment_form.work_type }}</div>
+              <div class="col-md-6">{{ appointment_form.preferred_date.label_tag }}{{ appointment_form.preferred_date }}</div>
+              <div class="col-12">{{ appointment_form.address.label_tag }}{{ appointment_form.address }}</div>
+              <div class="col-12">{{ appointment_form.message.label_tag }}{{ appointment_form.message }}</div>
+              <div class="col-12"><button class="btn-gold w-100" type="submit">Submit Appointment</button></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section contact-section">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <p class="eyebrow">Contact</p>
+          <h2 class="section-title">Let’s craft your next room.</h2>
+          <div class="contact-list">
+            <a href="tel:{{ phone_number }}"><i class="fa-solid fa-phone"></i>{{ phone_number }}</a>
+            <a href="mailto:info@rahisluxuryinteriors.com"><i class="fa-solid fa-envelope"></i>info@rahisluxuryinteriors.com</a>
+            <a href="https://wa.me/{{ whatsapp_number }}"><i class="fa-brands fa-whatsapp"></i>WhatsApp Now</a>
+          </div>
+          <div class="socials">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a><a href="#"><i class="fa-brands fa-facebook-f"></i></a><a href="#"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-7">
+         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.498033545!2d77.23260897528952!3d28.64480287565803!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd005c1c9d41%3A0x67c1ce1a0a618240!2sSui%20walan%20chowk!5e0!3m2!1sen!2sin!4v1778514479264!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div><h3>Rahis Luxury Interiors</h3><p>Turning Wood Into Luxury</p></div>
+    <div><a href="#services">Services</a><a href="#portfolio">Portfolio</a><a href="#booking">Appointment</a></div>
+    <div><a href="{% url 'dashboard_login' %}">Admin Dashboard</a><a href="tel:{{ phone_number }}">Call Now</a></div>
+  </div>
+</footer>
+
+<a class="float-whatsapp" href="https://wa.me/{{ whatsapp_number }}" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+<a class="float-call" href="tel:{{ phone_number }}" aria-label="Call"><i class="fa-solid fa-phone"></i></a>
+<div class="enquiry-pop" id="enquiryPop"><button id="closePop"><i class="fa-solid fa-xmark"></i></button><strong>Need custom furniture?</strong><span>Book your appointment today.</span><a href="#booking">Enquire Now</a></div>
+{% endblock %}
